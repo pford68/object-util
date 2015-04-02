@@ -1,0 +1,25 @@
+{
+  "name": "object-utils",
+  "version": "1.0.0",
+  "description": "A small set of utilities for use with JavaScript Objects.  Includes yet another extend() function because sometimes all you want is just an extend() funciton and not much else.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine-node test/spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pford68/object-utils"
+  },
+  "keywords": [
+    "object",
+    "extend",
+    "augment",
+    "constant"
+  ],
+  "author": "Philip Ford",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pford68/object-utils/issues"
+  },
+  "homepage": "https://github.com/pford68/object-utils"
+}
