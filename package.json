@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pford68/object-utils"
+    "url": "https://github.com/pford68/object-util"
   },
   "keywords": [
     "object",
@@ -19,7 +19,7 @@
   "author": "Philip Ford",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/pford68/object-utils/issues"
+    "url": "https://github.com/pford68/object-util/issues"
   },
-  "homepage": "https://github.com/pford68/object-utils"
+  "homepage": "https://github.com/pford68/object-util"
 }
