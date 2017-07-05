@@ -1,6 +1,6 @@
 {
   "name": "object-util",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A small set of utilities for use with JavaScript Objects.  Includes yet another extend() function because sometimes all you want is just an extend() funciton and not much else.",
   "main": "index.js",
   "scripts": {
