@@ -22,6 +22,7 @@ if (typeof Array.from !== 'function'){
     }
 }
 
+
 let $public = {
 
     /**
@@ -93,5 +94,27 @@ let $public = {
     }
 
 };
+
+
+let spec = {
+    extend: function(...varargs){
+        return $public.extend(this, ...varargs);
+    },
+    augment: function(args){
+        return $public.augment(this, args);
+    },
+    override: function(args){
+        return $public.override(this, args);
+    }
+};
+
+/**
+ * Mixes the utility methods into the specified object.
+ * @param that
+ */
+$public.mixin = function(that){
+    return $public.extend(that, spec);
+};
+
 
 module.exports = $public;

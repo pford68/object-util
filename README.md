@@ -14,9 +14,6 @@ does not exist in the first or is null.
 Copies properties from the second object to the first iff the property <strong>exists</strong>
 in the first.
 
-### clone(that)
-Returns a deep copy of the specified object
-
 ### isObject(that, pure)
 Returns true/false for whether the specified value is an Object, and works for Objects created in other
 frames as well.  If the "pure" flag is "true" then isObject() should return true only if the value belongs
