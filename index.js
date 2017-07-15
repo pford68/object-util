@@ -1,9 +1,10 @@
 /**
  * A small set of utilities for use with JavaScript objects.
  */
+'use strict';
 
 function _extend(obj1, obj2) {
-    for (var i in obj2) {
+    for (let i in obj2) {
         if (obj2.hasOwnProperty(i)) {
             obj1[i] = obj2[i];
         }
@@ -13,7 +14,7 @@ function _extend(obj1, obj2) {
 
 if (typeof Array.from !== 'function'){
     Array.from = function($arguments, transformer){
-        var $_ = Array.prototype.slice.call($arguments);
+        let $_ = Array.prototype.slice.call($arguments);
         if (typeof transformer === 'function'){
             return $_.map(transformer);
         }
@@ -21,34 +22,28 @@ if (typeof Array.from !== 'function'){
     }
 }
 
-var $public = {
+let $public = {
 
     /**
      * Exactly like jQuery's/underscore's version...functionally.  Copies properties from the second object to the first.
      * <p>Note that this is a memory-efficient way to create new objects because, when we copy the properties, we are copying
      * references to the same values or functions.  Thus, only one copy of each function or object will exist.
      * This does mean, however, that extend() makes a shallow copy, and if you are expecting a clone, and
-     * expecting to make changes in one object that do not effect the other, you will be disappointed, unless
+     * expecting to make changes in one object that do not effect the others, you will be disappointed, unless
      * you add an empty object as the first parameter.</p>
      */
-    extend: function(that, props) {
-        var args = Array.from(arguments);
-        for (var i = 1, len = args.length; i < len; i++) {
-            _extend(args[0], args[i]);
+    extend: function(that, ...varargs) {
+        let args = [...varargs];
+        // Mix each argument, starting from the left (not the right) into the first argument
+        // Do not mix args[n] into args[n-1]..., because that alters each argument.
+        // Similarly, do not start from the right, because then the overriding of properties takes
+        // place form left-to-right instead of the intended right-to-left.
+        for (let i = 0, len = args.length; i < len; i++) {
+            _extend(that, args[i]);
         }
         return that;   // For chaining
     },
 
-
-    /**
-     * Returns a deep copy of the specified object
-     *
-     * @param {Object} that The object to clone
-     * @return {Object} The clone
-     */
-    clone: function (that) {
-        return $public.extend({}, that);
-    },
 
 
     /**
@@ -56,10 +51,12 @@ var $public = {
      * does not exist in the first or is null.
      */
     augment: function(that, props) {
-        var i;
-        for (i in props) {
-            if (props.hasOwnProperty(i))
-                if (that[i] == null) that[i] = props[i];
+        for (let i in props) {
+            if (props.hasOwnProperty(i)) {
+                if (that[i] == null) {  // Yes, we want the type coercion.
+                    that[i] = props[i];
+                }
+            }
         }
         return that;
     },
@@ -70,9 +67,12 @@ var $public = {
      * in the first.
      */
     override: function(that, props) {
-        for (var i in props) {
-            if (props.hasOwnProperty(i))
-                if (i in that) that[i] = props[i];
+        for (let i in props) {
+            if (props.hasOwnProperty(i)) {
+                if (i in that) {
+                    that[i] = props[i];
+                }
+            }
         }
         return that;
     },
@@ -87,7 +87,7 @@ var $public = {
      */
     isObject: function(value, pure) {
         // The last condition is needed to test objects from other frames/windows accurately.
-        if (value == null) return false;
+        if (value === null || value === undefined) return false;
         if (pure) return ( value.constructor && value.constructor.name === 'Object');
         return (typeof value === 'object' || value.constructor === Object);
     }
